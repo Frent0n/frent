@@ -1,0 +1,107 @@
+#include <iostream>
+#include <cmath>
+#include <bitset>
+using namespace std;
+void task1() {
+	unsigned int const x = 0x0;
+	unsigned int mask = 0xF0;
+	bitset <32> res1(x);
+	cout << "X = " << res1 << endl;
+	bitset <32> res2(mask);
+	cout << "mask = " << res2 << endl;
+	int a = (x | mask);
+	bitset <32> res(a);
+	cout << "Ответ:" << res << endl;
+	cout << "Ответ: в 10-ой системе счисления= " << a;
+}
+
+void task2()
+{
+	unsigned int maska = 83886080;
+	unsigned int a;
+	unsigned int c;
+	cin>> a;
+	bitset <32> res1(a);
+	cout << "Введённое число: " << res1 << endl;
+	maska = ~maska;
+	bitset <32> res(a & maska);
+	cout << "Ответ:" << res << endl;
+	cout << "Ответ: в 10-ой системе счисления= " << (a & maska);
+
+}
+
+void task3() {
+	unsigned int a;
+	cout << "Введите число: ";
+	cin >> a;
+	bitset <32> res1(a);
+	cout << "Введённое число: " << res1 << endl;
+	a = a << 5;
+	bitset <32> res(a);
+	cout << "Ответ:" << res << endl;
+	cout << "Ответ: в 10-ой системе счисления= " << a;
+
+}
+
+void task4()
+{
+	unsigned int a;
+	cout << "Введите число: ";
+	cin >> a;
+	bitset <32> res1(a);
+	cout << "Введённое число: " << res1 << endl;
+	a = a >> 5;
+	bitset <32> res(a);
+	cout << "Ответ:" << res << endl;
+	cout << "Ответ: в 10-ой системе счисления= " << a;
+}
+
+
+void task5()
+{
+	unsigned int maska = 1;
+	unsigned int a, n;
+	cin >> a;
+	cin >> n;
+	bitset <32> res1(a);
+	bitset <32> res2(n);
+	cout << "Введённое число: " << res1 << endl;
+	cout << "Введённый бит: " << res2 << endl;
+	maska = maska << n;
+	maska = ~maska;
+	a = a & maska;
+	bitset <32> res(a);
+	cout << "Ответ:" << res << endl;
+	cout << "Ответ: в 10-ой системе счисления= " << a;
+}
+
+int main() {
+	setlocale(LC_ALL, "Russian");
+	int c;
+	cout << "Какую программу запустить? (1-5)" << endl;
+	cin >> c;
+	switch (c) {
+	case 1:
+		task1();
+		break;
+
+	case 2:
+		task2();
+		break;
+
+	case 3:
+		task3();
+		break;
+
+	case 4:
+		task4();
+		break;
+
+	case 5:
+		task5();
+		break;
+	default:
+		cout << "Неверно введены значения" << endl;
+		break;
+	}
+}

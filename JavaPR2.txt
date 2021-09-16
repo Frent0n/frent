@@ -1,0 +1,234 @@
+//1HUMAN
+import java.util.Scanner;
+public class HeadMain {
+
+    public static void main(String []args){
+        Scanner sc = new Scanner(System.in);
+        Human human = new Human();
+        Human.Head head = human.new Head();
+        Human.Leg leg = human.new Leg(1,3);
+        Human.Hand hand = human.new Hand("красный", "миндаль");
+        head.set_hair("Blonde");
+        head.set_eye("Blue");
+        leg.set_leg_length(100);
+        leg.set_fingers(5);
+        hand.set_color_nogotochk("Red");
+        hand.set_shape_nogotochk("Oval");
+
+        System.out.println("Введите количество извилин: ");
+        head.set_izvilini(Integer.parseInt(sc.nextLine()));
+        System.out.printf("Количество извилин - %d", head.get_izvilini());
+        System.out.println();
+        System.out.println("Прибавим к этому ещё немного, введите цифру: ");
+        head.change_nof_izv(Integer.parseInt(sc.nextLine()));
+        System.out.printf("Количество извилин сейчас - %d", head.get_izvilini());
+        System.out.println();
+
+        System.out.println("Удваиваем количество пальцев");
+        leg.ydvoi_fingers();
+        System.out.printf("Количество пальцев - %d", leg.get_fingers());
+        System.out.println();
+
+        System.out.println("Удлиняем ногу, введите цифру: ");
+        leg.udlini_leg(Integer.parseInt(sc.nextLine()));
+        System.out.printf("Длина ноги - %d", leg.get_leg_length());
+        System.out.println();
+
+        System.out.println("Выбираем цвет ногтей, введите желаемый цвет: ");
+        hand.set_color_nogotochk(sc.nextLine());
+        System.out.printf("Выбранный цвет- %s", hand.get_color_nogotochk());
+        System.out.println();
+        System.out.println("Выбираем форму ногтей, введите желаемую форму: ");
+        hand.set_shape_nogotochk(sc.nextLine());
+        System.out.printf("Выбранная форма %s", hand. get_shape_nogotochk());
+        System.out.println();
+    }
+}
+
+class Human{
+    class Head{
+        private int number_of_izvilin_v_mozgu;
+        private String hair_color;
+        private String eye_color;
+        Head(){}
+        Head(int n, String h, String e)
+        {
+            number_of_izvilin_v_mozgu = n;
+            hair_color = h;
+            eye_color = e;
+        }
+        int get_izvilini()
+        {
+            return number_of_izvilin_v_mozgu;
+        }
+        void set_izvilini(int number)
+        {
+            number_of_izvilin_v_mozgu = number;
+        }
+        String get_hair()
+        {
+            return hair_color;
+        }
+        void set_hair(String color)
+        {
+            hair_color = color;
+        }
+        String get_eye()
+        {
+            return eye_color;
+        }
+        void set_eye(String color)
+        {
+            eye_color = color;
+        }
+        void change_nof_izv(int number){
+            number_of_izvilin_v_mozgu = number_of_izvilin_v_mozgu + number;
+        }
+
+    }
+    class Leg{
+        private int length_of_leg;
+        private int number_of_fingers;
+        Leg(int l, int n) {
+            length_of_leg = l;
+            number_of_fingers = n;
+        }
+        int get_leg_length()
+        {
+            return length_of_leg;
+        }
+        void set_leg_length(int length)
+        {
+            length_of_leg = length;
+        }
+        int get_fingers()
+        {
+            return number_of_fingers;
+        }
+        void set_fingers(int number)
+        {
+            number_of_fingers = number;
+        }
+        void ydvoi_fingers() {
+            number_of_fingers = number_of_fingers*2;
+        }
+        void udlini_leg (int length){
+            length_of_leg = length_of_leg + length;
+        }
+    }
+    class Hand{
+        private String color_of_nogotochkov;
+        private String shape_of_nogotochkov;
+        Hand(String c,String s){
+            color_of_nogotochkov = c;
+            shape_of_nogotochkov = s;
+        }
+        String get_color_nogotochk()
+        {
+            return color_of_nogotochkov;
+        }
+        void set_color_nogotochk(String color)
+        {
+            color_of_nogotochkov = color;
+        }
+        String get_shape_nogotochk()
+        {
+            return shape_of_nogotochkov;
+        }
+        void set_shape_nogotochk(String shape)
+        {
+            shape_of_nogotochkov = shape;
+        }
+    }
+}
+
+
+
+//2AUTHOR
+public class AuthorMain {
+    public static void main (String []args) {
+        Author author = new Author("Пушкин", "Pushka@mail.ru", 'm');
+        System.out.println(author.getName() + " " + author.getEmail() + " " + author.getGender());
+        System.out.println(author.toString());
+        author.setEmail("mail@mail.ru");
+        System.out.println(author.toString());
+    }
+}
+class Author {
+    private String name;
+    private String email;
+    private char gender;
+    Author (String n,String e,char g) {
+        name = n;
+        email = e;
+        gender = g;
+    }
+    String getName(){
+        return name;
+    }
+    String getEmail(){
+        return email;
+    }
+    void setEmail(String newEmail){
+        email = newEmail;
+    }
+    char getGender(){
+        return gender;
+    }
+    public String toString(){
+        return "Author{name=" + name + ", email=" + email + ", gender=" + gender + "}";
+    }
+}
+
+//3BALL
+public class BallMain {
+    public static void main (String []args) {
+        Ball ball = new Ball(1.1,1.2);
+        ball.setXYSpeed(10);
+        System.out.println("x = " + ball.getX() + ", y = " + ball.getY() + ", speed = " + ball.getSpeed());
+        ball.setX(2.2);
+        ball.setY(3.3);
+        System.out.println(ball.toString());
+    }
+}
+class Ball {
+    private double x = 0.0;
+    private double y = 0.0;
+    private double speed;
+    Ball (double x_new, double y_new){
+        x = x_new;
+        y = y_new;
+    }
+    Ball (){}
+    public double getX() {
+        return x;
+    }
+    public void setX(double x_new) {
+        x = x_new ;
+    }
+    public double getY() {
+        return y;
+    }
+    public void setY (double y_new){
+        y = y_new;
+    }
+    public void setXYSpeed(double xySpeed) {
+        speed = xySpeed;
+    }
+    void move(double xDisp, double yDisp) {
+        x = x + xDisp;
+        y = y + yDisp;
+    }
+    public double getSpeed() {
+        return speed;
+    }
+
+     public String toString() {
+        return "Ball{" +
+                "x=" + x +
+                ", y=" + y +
+                ", speed=" + speed +
+                '}';
+    }
+}
+
