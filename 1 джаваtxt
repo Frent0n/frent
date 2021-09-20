@@ -1,0 +1,226 @@
+#1:
+
+public class Loader{
+
+    public static void main(String []args){
+        int sum1 = 0;
+        int sum2 = 0;
+        int sum3 = 0;
+        int[] array = {1, 2, 3, 4, 5, 6, 7};
+        for(int i = 0; i<array.length; i++)
+        {
+            sum1 = sum1 + array[i];
+        }
+        int k = 0;
+        while(k<array.length)
+        {
+            sum2 = sum2 + array[k];
+            k = k + 1;
+        }
+        int t = 0;
+        do{
+            sum3 = sum3 + array[t];
+            t = t + 1;
+        }
+        while(t<array.length);
+        System.out.println("for: " + sum1);
+        System.out.println("while: " + sum2);
+        System.out.println("do while: " + sum3);
+    }
+}
+
+#2: 
+
+    public static void main(String []args){
+        double sum;
+        float x=10;
+        double buff=0;
+        for (float i = 0; i<x; i++)
+        {
+            System.out.println("Element = " + (i+1 + 1/i));
+            System.out.println(" ");
+            sum = 1 / (i+1f);
+            buff=buff + sum;
+        }
+        System.out.println();
+        System.out.println("The sum = " + buff);
+    }
+}
+
+
+
+#3.1: 
+
+public class Loader3 {
+    public static void main(String []args){
+        int min = 1;
+        int max = 10;
+        int random = (int)Math.floor(Math.random()*(max-min+1)+min);
+        int[] array = new int[random];
+        System.out.println("Unsorted: ");
+        for (int i = 0; i<random; i++)
+        {
+            array[i] = (int)Math.floor(Math.random()*(max-min+1)+min);
+            System.out.println(array[i]);
+        }
+        System.out.println("Sorted: ");
+        int temp = 0;
+        for (int k = 1; k<random; k++)
+        {
+            if (array[k] < array[k-1])
+            {
+                temp = array[k];
+                array[k] = array[k-1];
+                array[k-1] = temp;
+                k = 0;
+            }
+        }
+        for (int t = 0; t<random; t++)
+        {
+            System.out.println(array[t]);
+        }
+    }
+}
+
+#3.2: 
+
+import java.util.Random;
+public class Loader4{
+
+    public static void main(String []args){
+        Random rand = new Random();
+        int max = 10;
+        int random = 1 + rand.nextInt(max);
+        int[] array = new int[random];
+        System.out.println("Unsorted: ");
+        for (int i = 0; i<random; i++)
+        {
+            array[i] = 1 + rand.nextInt(max);
+            System.out.println(array[i]);
+        }
+        System.out.println("Sorted: ");
+        int temp = 0;
+        for (int k = 1; k<random; k++)
+        {
+            if (array[k] < array[k-1])
+            {
+                temp = array[k];
+                array[k] = array[k-1];
+                array[k-1] = temp;
+                k = 0;
+            }
+        }
+        for (int t = 0; t<random; t++)
+        {
+            System.out.println(array[t]);
+        }
+    }
+
+}
+#4: 
+
+import java.util.Scanner;
+public class Main{
+
+     public static void main(String []args){
+         Scanner sc = new Scanner(System.in);
+         System.out.println("Enter number: ");
+         int number = sc.nextInt();
+         System.out.println("The factorial of this number is: ");
+         System.out.println(factorial(number));
+     }
+
+     public static int factorial(int number){
+         int sum = 1;
+         for (int i = 1; i<=number; i++)
+         {
+             sum = sum*i;
+         }
+         return sum;
+     }
+}
+
+
+#5: 
+
+public class Loader6{
+
+    public static void main(String []args){
+        Book mybook = new Book();
+        mybook.name = "Homework";
+        mybook.number_of_pages = 6;
+        mybook.publish_year = 2021;
+        mybook.output();
+    }
+}
+
+class Book{
+    String name;
+    int number_of_pages;
+    int publish_year;
+    void output(){
+        System.out.println("The book " + name + "which has " + number_of_pages + "pages " + "was published in " + publish_year);
+    }
+}
+
+#6: 
+
+public class Loader7{
+
+    public static void main(String []args){
+        String[] dogs = new String[3];
+        Dog GoodBoy1 = new Dog("Starosta", 5);
+        Dog GoodBoy2 = new Dog("Zamestitel", 10);
+        Dog GoodBoy3 = new Dog("IT-SFERA", 15);
+
+        System.out.println(GoodBoy1.get_klichka() + "is " + GoodBoy1.get_age() + "years old and " + GoodBoy1.ToHuman() + "human years old");
+
+        GoodBoy2.set_klichka("horoshiy_sobaken");
+        GoodBoy2.set_age(20);
+
+        dogs[0] = GoodBoy1.ToString();
+        dogs[1] = GoodBoy2.ToString();
+        dogs[2] = GoodBoy3.ToString();
+
+        for (int i = 0; i<dogs.length; i++)
+        {
+            System.out.println(dogs[i]);
+        }
+
+    }
+}
+
+class Dog{
+    private String klichka;
+    private int age;
+
+    Dog(String n, int a)
+    {
+        klichka = n;
+        age = a;
+    }
+
+    String get_klichka(){
+        return klichka;
+    }
+
+    int get_age(){
+        return age;
+    }
+
+    void set_klichka(String klich){
+        klichka = klich;
+    }
+
+    void set_age(int ag){
+        age = ag;
+    }
+
+    int ToHuman(){
+        return age*7;
+    }
+
+    public String toString(){
+        return "klichka: " + klichka + "age: = " + age;
+    }
+}
