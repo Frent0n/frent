@@ -1,0 +1,211 @@
+public class Loader22 {
+
+    public static void main(String []args){
+        Human human = new Human(5);
+        System.out.println(human.getHead().getHairLength());
+        System.out.println(human.getLeg().getFingerCount());
+        System.out.println(human.getHand().getNailColor());
+        human.getHand().deleteFingers(1);
+        System.out.println(human.getHand().getFingerCount());
+        human.getLeg().increaseLength(3);
+        human.getHead().addHair(10);
+        System.out.println(human.getLeg().getFingerLength());
+        System.out.println(human.getHead().getHairLength());
+    }
+}
+
+public class Human{
+    private Head head = new Head(322, "Red", "Green");
+    private Leg leg = new Leg(11, 5);
+    private Hand hand = new Hand(11, "Blue");
+
+    Head getHead() {
+        return head;
+    }
+    Human(int head){
+        head = head;
+    }
+
+    public void setHead(Head head) {
+        this.head = head;
+    }
+
+    public Leg getLeg() {
+        return leg;
+    }
+
+    public void setLeg(Leg leg) {
+        this.leg = leg;
+    }
+
+    public Hand getHand() {
+        return hand;
+    }
+
+    public void setHand(Hand hand) {
+        this.hand = hand;
+    }
+
+
+}
+
+class Head{
+    private int hairLength;
+    private String hairColor;
+    private String eyeColor;
+    Head(int hairLength, String hairColor, String eyeColor){
+        this.hairLength = hairLength;
+        this.hairColor = hairColor;
+        this.eyeColor = eyeColor;
+    }
+    int getHairLength(){
+        return hairLength;
+    }
+    String getHairColor(){
+        return hairColor;
+    }
+    String getEyeColor(){
+        return eyeColor;
+    }
+    void setHairLength(int hairLength){
+        this.hairLength = hairLength;
+    }
+    void setHaiColor(String hairColor){
+        this.hairColor = hairColor;
+    }
+    void setEyeColor(String eyeColor){
+        this.eyeColor = eyeColor;
+    }
+    void addHair(int hair){
+        hairLength = hairLength + hair;
+    }
+}
+
+class Hand{
+    private int fingerCount;
+    private String nailColor;
+    Hand(int fingerCount, String nailColor){
+        this.fingerCount = fingerCount;
+        this.nailColor = nailColor;
+    }
+    int getFingerCount(){
+        return fingerCount;
+    }
+    String getNailColor(){
+        return nailColor;
+    }
+    void setFingerCount(int fingerCount){
+        this.fingerCount = fingerCount;
+    }
+    void setNailColor(String nailColor){
+        this.nailColor = nailColor;
+    }
+    void deleteFingers(int delete){
+        fingerCount = fingerCount - delete;
+    }
+}
+
+class Leg{
+    private int fingerCount;
+    private int fingerLength;
+    Leg(int fingerCount, int fingerLength){
+        this.fingerCount = fingerCount;
+        this.fingerLength = fingerLength;
+    }
+    int getFingerCount(){
+        return fingerCount;
+    }
+    void setFingerCount(int fingerCount){
+        this.fingerCount = fingerCount;
+    }
+    int getFingerLength() {
+        return fingerLength;
+    }
+    void setFingerLength(int fingerLength){
+        this.fingerLength = fingerLength;
+    }
+    void increaseLength(int length){
+        fingerLength = fingerLength + length;
+    }
+}
+
+
+
+public class Loader2 {
+    public static void main(String[] args) {
+        Author author = new Author("Lisnyak Evgenya", "aml750912@gmail.com", 'М');
+        System.out.println(author.getName());
+        System.out.println(author.getEmail());
+        System.out.println(author.getGender());
+        author.setEmail("AM@gmail.com");
+        System.out.println(author.toString());
+        System.out.println();
+
+        Ball ball = new Ball(2.3, 2.5);
+        System.out.println(ball.getX());
+        System.out.println((ball.getY()));
+        ball.setXY(2.5, 3.6);
+        ball.move(0.5, 0.4);
+        System.out.println(ball.toString());
+
+    }
+}
+
+public class Author {
+    private String name;
+    private String email;
+    private char gender;
+
+    public Author(String name, String email, char gender){
+        this.name = name;
+        this.email = email;
+        this.gender = gender;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public char getGender() { return gender; }
+    public String toString()
+    {
+        return "Author's name: "+ name + " " + "Author's email: " + email +" " + "sex: " + gender;
+    }
+}
+
+public class Ball {
+    private double x = 0.0;
+    private double y = 0.0;
+
+    public Ball(double x, double y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public Ball(){
+
+    }
+
+    public double getX(){return x;}
+    public void setX(double x){this.x = x;}
+
+    public double getY(){return y;}
+    public void setY(double y){this.y = y;}
+
+    public void setXY(double x, double y){this.x = x;  this.y = y;}
+
+    public void move(double xDisp, double yDisp){
+        this.x = x+xDisp;
+        this.y = y+yDisp;
+    }
+
+    public String toString()
+    {
+        return "Ball @ (" +  x + " , "+ y +") " ;
+    }
+}
