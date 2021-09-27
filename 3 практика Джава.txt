@@ -1,0 +1,440 @@
+//1 номер
+public class DishMain {
+    public static void main(String args[]) {
+        Plate plate = new Plate("Фарвор", "Красный", 12, 30);
+        Spoon spoon = new Spoon("Железо", "Природный", 3, 1);
+        System.out.println(spoon.toString());
+        System.out.println(spoon.Moreshark(3));
+        System.out.println(plate.toString());
+        System.out.println(plate.toString());
+        System.out.println("вес тарелки = " + plate.getWeight());
+    }
+}
+
+abstract class Dish {
+    protected String material;
+    protected String color;
+    protected int widnth;
+    protected int height;
+
+    public Dish(String material, String color, int widnth, int height) {
+        this.material = material;
+        this.color = color;
+        this.widnth = widnth;
+        this.height = height;
+    }
+
+    public String getMaterial() {
+        return material;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public int getWidnth() {
+        return widnth;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setWidnth(int widnth) {
+        this.widnth = widnth;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "material='" + material + '\'' +
+                ", color='" + color + '\'' +
+                ", widnth=" + widnth +
+                ", height=" + height +
+                '}';
+    }
+}
+
+class Plate extends Dish {
+    private int weight = 3;
+    private String style = "retro";
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public Plate(String material, String color, int widnth, int height) {
+        super(material, color, widnth, height);
+    }
+}
+
+class Spoon extends Dish {
+    private int acuteness;
+
+    public int getAcuteness() {
+        return acuteness;
+    }
+
+    public void setAcuteness(int acuteness) {
+        this.acuteness = acuteness;
+    }
+
+    public int Moreshark (int level){
+        acuteness = acuteness + level;
+        return acuteness;
+    }
+
+    public Spoon(String material, String color, int widnth, int height) {
+        super(material, color, widnth, height);
+    }
+}
+
+//2 номер
+public class FurnitureMain {
+
+    public static void main (String args[]){
+
+        FurnitureShop furnitureShop = new FurnitureShop();
+        furnitureShop.loop();
+        furnitureShop.list();
+        furnitureShop.buy();
+
+    }
+}
+
+abstract class Furniture {
+    protected String material;
+    protected String color;
+    protected  int width;
+    protected  int height;
+    protected  int depth;
+    protected int price;
+    public Furniture (String material, String color, int widnth, int height, int depth, int price) {
+        this.material = material;
+        this.color = color;
+        this.width = widnth;
+        this.height = height;
+        this.depth = depth;
+        this.price = price;
+    }
+
+    public String getMaterial() {
+        return material;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getDepth() {
+        return depth;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setDepth(int depth) {
+        this.depth = depth;
+    }
+
+    void setPrice(int price) {
+        this.price = price;
+    }
+}
+
+class Sofa extends Furniture {
+    public Sofa(String material, String color, int widnth, int height, int depth, int price) {
+        super(material, color, widnth, height,depth,price);
+    }
+}
+
+class Armchair extends Furniture {
+    public Armchair (String material, String color, int widnth, int height, int depth, int price) {
+        super(material,color,widnth,height,depth,price);
+    }
+}
+
+class Cupboard extends  Furniture {
+    public Cupboard (String material, String color, int width, int height, int depth, int price) {
+        super(material,color,width,height,depth,price);
+    }
+}
+
+class Table extends  Furniture {
+    public Table (String material, String color, int width, int height, int depth, int price){
+        super(material,color,width,height,depth, price);
+    }
+}
+
+import java.util.Scanner;
+public class FurnitureShop implements Catalog {
+    Scanner sc = new Scanner(System.in);
+    String quit = "y";
+    int sum_price = 0;
+    String korzina = "";
+    Sofa sofa = new Sofa("linen", "pearl", 320, 222, 170,  101);
+    Armchair armchair = new Armchair("cotton", "caramel", 240, 156, 212,  150);
+    Cupboard cupboard = new Cupboard("oak", "brown", 1200, 1300, 600, 200);
+    Table table = new Table("birch", "white", 3000, 3000, 3000, 250);
+
+    public void Type() {
+        System.out.println("Укажите номер мебели в каталоге, которую хотите купить(1-4): ");
+        System.out.println("1) " + sofa.getClass().getName() + " - " + sofa.getPrice() + "$");
+        System.out.println("2) " + armchair.getClass().getName() + " - " + armchair.getPrice() + "$");
+        System.out.println("3) " + cupboard.getClass().getName() + " - " + cupboard.getPrice() + "$");
+        System.out.println("4) " + table.getClass().getName() + " - " + table.getPrice() + "$");
+    }
+
+    public void choose() {
+        int num = sc.nextInt();
+        if (num == 1) {
+            sum_price = sum_price + sofa.getPrice();
+            korzina = korzina + sofa.getClass().getName() + " ";
+        }
+        else if(num == 2){
+            sum_price = sum_price + armchair.getPrice();
+            korzina = korzina + armchair.getClass().getName() + " ";
+        }
+        else if(num == 3){
+            sum_price = sum_price + cupboard.getPrice();
+            korzina = korzina + cupboard.getClass().getName() + " ";
+        }
+        else if(num == 4){
+            sum_price = sum_price + table.getPrice();
+            korzina = korzina + table.getClass().getName() + " ";
+        }
+        else{
+            System.out.println("Error");
+        }
+    }
+    public void loop(){
+        while(!quit.equals("0")){
+            Type();
+            choose();
+            System.out.println("Хотите купить ещё мебель? 1 - да, 0 - нет");
+            sc.nextLine();
+            quit = sc.nextLine();
+        }
+    }
+    public void list(){
+        System.out.println("В вашей корзине: " + korzina + ", на общую стоимость " + sum_price + "$");
+    }
+
+    public void buy(){
+        System.out.println("Совершить покупку? 1-да, 0-нет");
+        int n = sc.nextInt();
+        if (n == 1) {
+            System.out.println("Покупка прошла успешна! Чек на сумму " + sum_price + "$");
+        }
+        else if(n==0) {
+            System.out.println("Покупка отменена, для совершения новой покупки обновите процесс");
+        }
+    }
+}
+
+public interface Catalog { //Интерфейс
+    public void Type();
+    public void choose();
+    public void loop();
+    public void list();
+    public void buy();
+}
+
+//3 номер
+public class ShapeMain {
+    public static void main (String args[]){
+        Square square = new Square();
+
+        System.out.println(square.toString());
+
+    }
+}
+abstract class Shape {
+    protected String color;
+    protected boolean filled;
+    Shape(){}
+    Shape(String color, boolean filled){
+        this.color = color;
+        this.filled = filled;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public boolean isFilled() {
+        return filled;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setFilled(boolean filled) {
+        this.filled = filled;
+    }
+    abstract double getArea();
+    abstract double getPerimeter();
+    public abstract String toString();
+}
+
+class Circle extends Shape{
+    protected double radius;
+    Circle(){}
+    Circle(double radius){
+        this.radius = radius;
+    }
+    Circle(double radius, String color, boolean filled){
+        super(color, filled);
+        this.radius = radius;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
+    double getArea() {
+        return 3.14*radius*radius;
+    }
+    double getPerimeter(){
+        return 2*3.14*radius;
+    }
+    public String toString(){
+        return "Circle{" + radius + ", " + color + ", " + filled + "}";
+    }
+}
+
+class Rectangle extends Shape{
+    protected double width;
+    protected double length;
+    Rectangle(){}
+    Rectangle(double width, double length){
+        this.width = width;
+        this.length = length;
+    }
+    Rectangle(double width, double length, String color, boolean filled){
+        super(color, filled);
+        this.width = width;
+        this.filled = filled;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getLength() {
+        return length;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public void setLength(double length) {
+        this.length = length;
+    }
+    double getArea(){
+        return width*length;
+    }
+    double getPerimeter(){
+        return 2*width + 2*length;
+    }
+
+    public String toString() {
+        return "Rectangle{" + width + ", " + length + ", " + color + ", " + filled + "}";
+    }
+}
+
+class Square extends Rectangle {
+    double side;
+    Square(){}
+    Square(double side){
+         this.side = side;
+    }
+
+    Square(double width, double length, double side, String color, boolean filled){
+        super(width, length, color, filled);
+        this.width = width;
+        this.length = length;
+        this.filled = filled;
+        this.side = side;
+    }
+
+    public void setWidth(double side) {
+        this.length = side;
+        this.width = side;
+    }
+
+    public void setLength(double side) {
+        this.length = side;
+        this.width = side;
+    }
+
+    public double getSide() {
+        return side;
+    }
+
+    public void setSide(double side) {
+        this.side = side;
+    }
+
+    @Override
+    public String toString() {
+        return "Square{" +
+                "side=" + side +
+                '}';
+    }
+}
