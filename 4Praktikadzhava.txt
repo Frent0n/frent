@@ -1,0 +1,304 @@
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
+
+public class EmployeeMain {
+    public static void main (String []args){
+        Company company = new Company(80,10,180);
+        company.managers();
+        company.countMoney();
+        company.topmanagers();
+        company.operators();
+        company.sort();
+
+        System.out.println("Список самых высоких зарплат: ");
+        company.getTopSalaryStaff(10);
+        System.out.println("Список самых низких зарплат: ");
+        company.getLowestSalaryStaff(30);
+
+        for (int i = 0; i<(company.getManag())/2; i++){
+            company.fire("Man"+i, "Man"+i, "manager");
+        }
+        for (int i = 0; i<(company.getTopmanag())/2; i++){
+            company.fire("TopMan"+i, "TopMan"+i, "topManager");
+        }
+        for (int i = 0; i<(company.getOper())/2; i++){
+            company.fire("Op"+i, "Op"+i, "operator");
+        }
+
+        company.sort();
+        System.out.println("Список самых высоких зарплат после удаления: ");
+        company.getTopSalaryStaff(10);
+        System.out.println("Список самых низких зарплат после удаления: ");
+        company.getLowestSalaryStaff(30);
+
+        /*company.hire("Chel", "Chelov", 81000, "operator");
+        company.getLowestSalaryStaff(10);
+        company.hireAll();
+        company.getLowestSalaryStaff(10);*/
+    }
+
+}
+
+abstract class Employee{
+    protected String surname;
+    protected String name;
+    protected double salary;
+    protected String position;
+    protected int moneyForCompany;
+
+    public int getMoneyForCompany() {
+        return moneyForCompany;
+    }
+
+    Employee(String surname, String name, double salary, String position){
+        this.surname = surname;
+        this.name = name;
+        this.salary = salary;
+        this.position = position;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public abstract double calcSalary(double salary); //Объявление абстрактного метода, нужен, чтобы реализовать его в классах-наследниках
+}
+
+class Manager extends Employee implements EmployeePosition{
+    Manager(String surname, String name, double salary, String position, int moneyForCompany) {
+        super(surname, name, salary, position);
+        this.moneyForCompany = moneyForCompany;
+    }
+
+    public String getJobTitle(){   //Возвращает занимаемую должность
+        return "Manager";
+    }
+    public double calcSalary(double baseSalary){  //зарплата складывается из фиксированной части и бонуса в виде 5% от заработанных для компании денег.
+        return baseSalary + 0.05*moneyForCompany;
+    }
+}
+
+class TopManager extends Employee implements EmployeePosition{
+    double companyMoney;
+    TopManager(String surname, String name, double salary, String position, double companyMoney) {
+        super(surname, name, salary, position);
+        this.companyMoney = companyMoney;
+    }
+
+    public String getJobTitle(){   //Возвращает занимаемую должность
+        return "TopManager";
+    }
+    public double calcSalary(double baseSalary){   //зарплата складывается из фиксированной части и бонуса в виде 150% от заработной платы, если доход компании более 10 млн рублей.
+
+        if(companyMoney <= 10000000){
+            return baseSalary;
+        }
+        else{
+            return baseSalary + 1.5*baseSalary;
+        }
+    }
+}
+
+class Operator extends Employee implements EmployeePosition{
+    Operator(String surname, String name, double salary, String position) {
+        super(surname, name, salary, position);
+    }
+
+    public String getJobTitle(){  //Возвращает занимаемую должность
+        return "Operator";
+    }
+    public double calcSalary(double baseSalary){   //зарплата складывается только из фиксированной части.
+        return baseSalary;
+    }
+}
+
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
+
+class Company {
+    private int manag ;
+    private int topmanag;
+    private int oper;
+
+    Company(int manag, int topmanag, int oper) {
+        this.manag = manag;
+        this.topmanag = topmanag;
+        this.oper = oper;
+    }
+
+    int min = 115000;
+    int max = 140000;
+    Random r = new Random();
+
+    ArrayList<Employee> newArray = new ArrayList<Employee>();
+        public void managers() {
+        for (int i = 0; i < manag; i++) {
+            Manager obj = new Manager("Man" + i, "Man" + i, 100000, "manager", r.nextInt(((max - min) + 1) + min));
+            newArray.add(obj);
+        }
+    }
+
+    double companyMoney = 0;
+
+    void countMoney() {
+        for (int i = 0; i < manag; i++) {
+            companyMoney = companyMoney + newArray.get(i).getMoneyForCompany();
+        }
+    }
+
+    public void topmanagers() {
+        for (int k = 0; k < topmanag; k++) {
+            TopManager obje = new TopManager("TopMan" + k, "TopMan" + k, 150000, "topManager", companyMoney);
+            newArray.add(obje);
+        }
+    }
+
+    public void operators() {
+        for (int t = 0; t < oper; t++) {
+            Operator objec = new Operator("Op" + t, "Op" + t, 80000, "operator");
+            newArray.add(objec);
+        }
+    }
+
+    public void hire(String surname, String name, double salary, String position) {  //Найм одного сотрудника
+        if (position.equals("manager")) {
+            Manager Obj1 = new Manager(surname, name, salary, position, r.nextInt(((max - min) + 1) + min));
+            newArray.add(Obj1);
+            sort();
+        } else if (position.equals("topManager")) {
+            TopManager Obj1 = new TopManager(surname, name, salary, position, companyMoney);
+            newArray.add(Obj1);
+            sort();
+        } else if (position.equals("operator")) {
+            Operator Obj1 = new Operator(surname, name, salary, position);
+            newArray.add(Obj1);
+            sort();
+        } else {
+            System.out.println("Error");
+        }
+        sort();
+    }
+
+    public void hireAll() {   //Найм списка сотрудника
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Сколько сотрудников нанимать? ");
+        int howMany = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < howMany; i++) {
+            System.out.println("Зарплата: ");
+            double c = sc.nextDouble();
+            sc.nextLine();
+            System.out.println("Фамилия: ");
+            String a = sc.nextLine();
+            System.out.println("Имя: ");
+            String b = sc.nextLine();
+            System.out.println("Должность: ");
+            String d = sc.nextLine();
+            hire(a, b, c, d);
+            System.out.println("Ok");
+        }
+        sort();
+    }
+
+    public void fire(String surname, String name, String position) {  //Увольнение сотрудника
+        for (int i = 0; i < newArray.size(); i++) {
+            if (newArray.get(i).getSurname().equals(surname) && newArray.get(i).getName().equals(name) && newArray.get(i).getPosition().equals(position)) {
+                newArray.remove(i);
+            }
+        }
+    }
+
+    public double getIncome() {
+        return companyMoney;
+    }  //получение значения дохода компании
+
+    ArrayList<Double> topSal = new ArrayList<Double>();
+
+    void sort() {   //Сортировка зарплат по возрастанию/убыванию
+        topSal.clear();
+        for (int t = 0; t < newArray.size(); t++) {
+            topSal.add(newArray.get(t).calcSalary(newArray.get(t).getSalary()));
+        }
+
+        for (int k = 1; k < topSal.size(); k++) {
+            double buff;
+            if (topSal.get(k - 1) > topSal.get(k)) {
+                buff = topSal.get(k - 1);
+                topSal.set(k - 1, topSal.get(k));
+                topSal.set(k, buff);
+                k = 0;
+            }
+        }
+    }
+
+    void getTopSalaryStaff(int count) {
+        if (topSal.size() > 0) {
+            for (int i = 1; i <= count; i++) {
+                System.out.println(i + ") " + topSal.get(topSal.size() - i) + " руб.");
+            }
+        }
+        else {
+            System.out.println("Ноль сотрудников");
+        }
+    }
+
+    void getLowestSalaryStaff(int count) {
+        if (topSal.size() > 0) {
+            for (int i = 0; i < count; i++) {
+                System.out.println((i+1 + ") " + topSal.get(i)) + " руб.");
+            }
+
+        } else {
+            System.out.println("Ноль сотрудников");
+        }
+    }
+
+
+    public int getManag() {
+        return manag;
+    }
+
+    public int getTopmanag() {
+        return topmanag;
+    }
+
+    public int getOper() {
+        return oper;
+    }
+
+}
+
+public interface EmployeePosition {
+    String getJobTitle();
+    double calcSalary(double baseSalary);
+}
